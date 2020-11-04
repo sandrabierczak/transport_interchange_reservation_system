@@ -1,0 +1,14 @@
+{% extends 'index.html' %}
+{% block content %}
+    {{ message }}
+    <form action="" method="POST">
+        <select name="bike_id">
+            <option value="">--Select Bike</option>
+            {% for bike in available_bikes %}
+                <option value="{{ bike.id }}">{{ bike.model_name }}</option>
+            {% endfor %}
+        </select>
+        <button class="btn btn-primary">Submit</button>
+        {% csrf_token %}
+    </form>
+{% endblock %}

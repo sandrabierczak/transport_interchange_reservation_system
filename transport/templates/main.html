@@ -1,0 +1,132 @@
+{% extends "index.html" %}
+{% block title %}{% endblock title %}
+{% block content %}
+    <div class="dashboard-header m-4">
+        <div class="dashboard-menu">
+            <div class="menu-item border-dashed">
+                <a href="/car_parking/">
+                    <i class="fas fa-parking icon-plus-square"></i>
+                    <span class="title">Reserve your car place</span>
+                </a>
+            </div>
+            <div class="menu-item border-dashed">
+                <a href="/bike_reservation/">
+                    <i class="far fa-plus-square icon-plus-square"></i>
+                    <span class="title">Select your bike</span>
+                </a>
+            </div>
+            {#            <div class="menu-item border-dashed">#}
+            {#                <a href="/plan/add-recipe/">#}
+            {#                    <i class="far fa-plus-square icon-plus-square"></i>#}
+            {#                    <span class="title">Add selected vehicle to the parking</span>#}
+            {#                </a>#}
+            {#            </div>#}
+        </div>
+
+        <div class="dashboard-alerts">
+            <div class="alert-item alert-info">
+                <i class="fas icon-circle fa-info-circle"></i>
+                <span class="font-weight-bold">Number of parking reservations: {{ num_res }}</span>
+            </div>
+            <div class="alert-item alert-light">
+                <i class="far icon-calendar fa-calendar-alt"></i>
+                <span class="font-weight-bold">Number of bikes reservations in total: {{ num_bike_res }}</span>
+            </div>
+        </div>
+    </div>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLGxYGoi2Pm1IFlXjbz6hDAc-iBRkcOnQ&callback=initMap&libraries=&v=weekly"
+            defer
+    ></script>
+    <style type="text/css">
+        /* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+        #map {
+            height: 100%;
+        }
+
+        /* Optional: Makes the sample page fill the window. */
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script>
+        // Note: This example requires that you consent to location sharing when
+        // prompted by your browser. If you see the error "The Geolocation service
+        // failed.", it means you probably did not give permission for the browser to
+        // locate you.
+
+        let map, infoWindow;
+
+        function initMap() {
+
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: {lat: 50.2643471, lng: 19.0131337},
+                zoom: 15,
+            });
+
+            infoWindow = new google.maps.InfoWindow();
+
+            // Try HTML5 geolocation.
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const pos = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude,
+                        };
+                        infoWindow.setPosition(pos);
+                        infoWindow.setContent("Your Location");
+                        infoWindow.open(map);
+                        map.setCenter(pos);
+                    },
+                    () => {
+                        handleLocationError(true, infoWindow, map.getCenter());
+                    }
+                );
+            } else {
+                // Browser doesn't support Geolocation
+                handleLocationError(false, infoWindow, map.getCenter());
+            }
+        }
+
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(
+                browserHasGeolocation
+                    ? "Error: The Geolocation service failed."
+                    : "Error: Your browser doesn't support geolocation."
+            );
+            infoWindow.open(map);
+        }
+    </script>
+
+    <body>
+    <div id="map"></div>
+    {#    <div class="m-4 p-4 border-dashed">#}
+    {#        <h2 class="dashboard-content-title">#}
+    {#            <span>Your last reservations</span>#}
+    {#        </h2>#}
+    {#        {% if last_bike %}#}
+    {#            <table class="table">#}
+    {#                <thead>#}
+    {#                <tr class="d-flex">#}
+    {#                </tr>#}
+    {#                </thead>#}
+    {#                </tr>#}
+    {#                <tr class="d-flex">#}
+    {#                    <td class="col-6">Last Bike Reservation</td>#}
+    {#                </tr>#}
+    {#                <tr class="d-flex">#}
+    {#                    <td class="col-6">{{ last_bike.bike.model_name }}</td>#}
+    {#                </tr>#}
+    {#                </tbody>#}
+    {#            </table>#}
+    {#        {% else %}#}
+    {#            <p>There are no reservations</p>#}
+    {#        {% endif %}#}
+    {#    </div>#}
+{% endblock content %}

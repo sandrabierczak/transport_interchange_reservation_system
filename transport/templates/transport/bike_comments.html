@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+{% block content %}
+    Add Comment<br>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_ul }}
+        <button class="btn btn-primary">Add!</button>
+    </form>
+    {% if info_sended %}
+        {% for comment in info_sended %}
+            <ul>
+                Bike: {{ comment.bike.model_name }} - Rate : {{ comment.rating.rate }}
+                - User : {{ comment.rating.user.username }} - Comment : {{ comment.rating.comments }}
+            </ul>
+        {% endfor %}
+    {% else %}
+        <p>There are no comments yet</p>
+    {% endif %}
+{% endblock %}

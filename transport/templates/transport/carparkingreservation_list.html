@@ -1,0 +1,77 @@
+{% extends 'index.html' %}
+{% block content %}
+
+    <h1>Reservations List</h1>
+    <div class="dashboard-content border-dashed p-3 m-4 view-height">
+
+        <div class="row border-bottom border-3 p-1 m-1">
+            <div class="col noPadding"><h3 class="color-header text-uppercase">List of car parking reservations
+            </h3></div>
+            <div class="col justify-content-end mb-2 noPadding">
+                <a href="/car_parking/"
+                   class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Add reservation
+                    plan</a>
+            </div>
+            {% if carparkingreservation_list %}
+                <table class="table border-bottom schedules-content">
+                    <thead>
+                    <tr class="d-flex text-color-darker">
+                        <th scope="col" class="col-2">Date Created</th>
+                        <th scope="col" class="col-2">Place</th>
+                        <th scope="col" class="col-2 center">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody class="text-color-lighter">
+
+
+                    {% for reservation in carparkingreservation_list %}
+                        <tr class="d-flex">
+                        <td class="col-2">
+                            {{ reservation.date_created }}</td>
+                        <td class="col-2">
+                            {{ reservation.place.name }}</td>
+                        <td class="col-2 d-flex align-items-center justify-content-center flex-wrap">
+                            <a href="/parking_details/{{ reservation.pk }}/"
+                               class="btn btn-info rounded-0 text-light m-1">Details</a>
+                        </td>
+                    {% endfor %}
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+            {% else %}
+                <table class="table border-bottom schedules-content">
+                    <thead>
+                    <tr class="d-flex text-color-darker">
+                        <th scope="col" class="col-6">There are no reservations yet</th>
+                    </tr>
+                    </thead>
+
+                </table>
+
+            {% endif %}
+
+
+        {% block pagination %}
+            {% if is_paginated %}
+                <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+                </div>
+                </div>
+            {% endif %}
+        {% endblock %}
+{% endblock %}
+
+{# <a href="{{ reservation.get_absolute_url }}"></a>#}
+
+

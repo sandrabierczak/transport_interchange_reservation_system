@@ -1,0 +1,49 @@
+{% extends 'index.html' %}
+{% block title %}{% endblock %}
+{% block content %}
+    <div class="dashboard-content border-dashed p-3 m-4 view-height">
+
+        <div class="mt-4 ml-4 mr-4">
+            <div class="row border-bottom border-3">
+                <div class="col"><h3 class="color-header text-uppercase">Parking Reservation details</h3></div>
+                <div class="col justify-content-end mb-2"><a
+                        href="/reservation_list/"
+                        class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Back</a>
+                </div>
+            </div>
+        </div>
+        <table class="table borderless">
+            <tbody>
+            <tr class="d-flex">
+                <th scope="row" class="col-2">Place</th>
+                <td class="col-4">
+                    {{ carparkingreservation.place.name }}
+                </td>
+            </tr>
+            <tr class="d-flex">
+                <th scope="row" class="col-2">Cost</th>
+                <td class="col-4">{{ carparkingreservation.price }} pln
+                </td>
+            </tr>
+            <tr class="d-flex">
+                <th scope="row" class="col-2">Duration</th>
+                <td class="col-4">
+                    {{ carparkingreservation.duration_print }}
+                </td>
+            </tr>
+            <tr class="d-flex">
+                <th scope="row" class="col-2">Reservation dates</th>
+                <td class="col-4">
+                    {% if carparkingreservation.date_start == carparkingreservation.date_end %}
+                        {{ carparkingreservation.date_start }}, {{ carparkingreservation.time_start }} -
+                        {{ carparkingreservation.time_end }}
+                    {% else %}
+                        From {{ carparkingreservation.date_start }} {{ carparkingreservation.time_start }} to
+                        {{ carparkingreservation.date_end }} {{ carparkingreservation.time_end }}
+                    {% endif %}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}
