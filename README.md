@@ -22,7 +22,6 @@ pytest: A testing framework for Python that simplifies the process of writing an
 To run the application locally, follow these steps:
 
 Clone the project repository from GitHub.
-Install the necessary dependencies using the provided requirements.txt file.
 Configure the PostgreSQL database settings in the Django settings.py file.
 Run the database migrations to set up the required tables and relationships.
 Start the Django development server.
@@ -31,9 +30,6 @@ The project follows the Model-View-Controller (MVC) architectural pattern, ensur
 
 The pytest framework is used for writing and running tests, ensuring the reliability and correctness of the application's functionality.
 
-Please note that this is a simplified description, and additional details, such as specific views, models, and template structures, may need to be implemented based on the requirements of the project.
-
-Remember to provide more specific information, such as the project's name, URLs, and any additional features or requirements, when adapting the description for your own project.
 
 
 
